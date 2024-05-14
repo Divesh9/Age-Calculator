@@ -1,15 +1,38 @@
-document.getElementById('ageForm').addEventListener('submit', function(e) {
-    e.preventDefault();
-    const dob = new Date(document.getElementById('dob').value);
-    const now = new Date();
-    let age = now.getFullYear() - dob.getFullYear();
-    const monthDiff = now.getMonth() - dob.getMonth();
+const options = {
+	method: 'GET',
+	headers: {
+		'X-RapidAPI-Key': '8b05c1a496mshb2fb43de659dd70p16061djsna86b561a1c08',
+		'X-RapidAPI-Host': 'weather-by-api-ninjas.p.rapidapi.com'
+	}
+};
 
-    if (monthDiff < 0 || (monthDiff === 0 && now.getDate() < dob.getDate())) {
-        age--;
-    }
+const getWeather =(city)=>{
+	cityName.innerHTML=city
+fetch('https://weather-by-api-ninjas.p.rapidapi.com/v1/weather?city=' + city, options)
+	.then(response => response.json())
+	.then(response => {
+		console.log(response)
+		// cloud_pct.innerHTML = response.cloud_pct
+		temp.innerHTML = response.temp
+		temp2.innerHTML = response.temp
+		feels_like.innerHTML = response.feels_like
+		humidity.innerHTML = response.humidity
+		humidity2.innerHTML = response.humidity
+		min_temp.innerHTML = response.min_temp
+		max_temp.innerHTML = response.max_temp
+		wind_speed.innerHTML = response.wind_speed
+		wind_speed2.innerHTML = response.wind_speed
+		wind_degrees.innerHTML = response.wind_degrees
+		sunrise.innerHTML = response.sunrise
+		sunset.innerHTML = response.sunset
+	})
+	.catch(err => console.error(err));
+}
 
-    const resultElement = document.getElementById('result');
-    resultElement.innerText = `Your age is ${age} years.`;
-    resultElement.style.display = 'block';
-});
+submit.addEventListener("click",(e)=>{
+	e.preventDefault()
+	getWeather(city .value)
+})
+
+getWeather("Mumbai")
+
